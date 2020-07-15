@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:viewer/src/courses/course_service.dart';
 import 'package:viewer/src/model/Course.dart';
+import 'package:viewer/src/search/search_component.dart';
 import 'package:viewer/src/utils/routes.dart';
 
 @Component(
@@ -11,6 +12,7 @@ import 'package:viewer/src/utils/routes.dart';
   templateUrl: './courses_template.html',
   directives: [
     coreDirectives,
+    SearchComponent,
   ],
   providers: [
     ClassProvider(CourseService),
@@ -35,10 +37,20 @@ class CoursesList implements OnInit {
 
   void onSelect(Course course) => selected = course;
 
-  Future<void> addCourse(String courseTitle) async {}
-  Future<void> deleteCourse(Course course) async {}
+  Future<void> addCourse(String courseTitle) async {
+    if (courseTitle.isEmpty) return null;
+    courses.add(await this._courseService.createCourse(courseTitle));
+    selected = null;
+  }
 
-  Future<NavigationResult> gotoDetail() {
+  Future<void> deleteCourse(Course course) async {
+    await _courseService.deleteCourse(course.uid);
+    courses.remove(course);
+    if (selected == course) selected = null;
+  }
+
+  Future<NavigationResult> gotoDetail(Course course) {
+    selected = course;
     return _router.navigate(_courseURL(selected.uid));
   }
 

@@ -1,0 +1,14 @@
+<div class="col" style="position: relative;">
+  <div class="form-inline row">
+    <input class="form-control col" type="search" placeholder="Search courses" aria-label="Search courses" #searchInput
+      (change)="search(searchInput.value)" (keyup)="search(searchInput.value)">
+  </div>
+  <div style="position: absolute;top: 40px;left: 0;
+        z-index: 10;width: 100%; background-color: #242528;
+        display: block;">
+    <div *ngFor="let course of courses | async" (click)='gotoDetail(course); searchInput.value=""'
+      class='list-group list-group-flush bg-dark'>
+      <span class="list-group-item">{{ course.title }}</span>
+    </div>
+  </div>
+</div>

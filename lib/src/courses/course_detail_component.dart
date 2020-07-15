@@ -9,9 +9,7 @@ import 'package:viewer/src/utils/routes.dart';
 
 @Component(
   selector: 'course-detail',
-  // templateUrl: './course_detail_template.html',
-  template:
-      '''<div *ngIf='selectedCourse != null'>{{selectedCourse.title}}</div>''',
+  templateUrl: './course_detail_template.html',
   directives: [
     coreDirectives,
     formDirectives,
@@ -37,7 +35,7 @@ class CourseDetail implements OnActivate {
   void goBack() => _location.back();
 
   Future<void> save() async {
-    // await _courseService.update(course);
+    await _courseService.updateCourse(selectedCourse);
     goBack();
   }
 }

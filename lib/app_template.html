@@ -1,0 +1,9 @@
+<div class="container">
+  <nav class="navbar navbar-dark bg-dark my-2">
+    <a class="navbar-brand" href="/#/courses">Curiosity</a>
+    <a [routerLink]="RoutePaths.courses.toUrl()">Courses</a>
+
+    <search-feature></search-feature>
+  </nav>
+  <router-outlet [routes]="Routes.all"></router-outlet>
+</div>

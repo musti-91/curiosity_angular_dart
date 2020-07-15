@@ -3,23 +3,52 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:http/testing.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import 'package:viewer/src/model/Course.dart';
 
+final tags = <List<String>>[
+  ['Javascript'],
+  ['Typeccript'],
+  ['Angular'],
+  ['AngularDart'],
+  ['Dart'],
+  ['Flutter'],
+  ['Firebase'],
+  ['NodeJs'],
+  ['Graphql'],
+  ['Deno'],
+];
+final titles = <String>[
+  'Javascript: the complete guide',
+  'Typescript: the complete guide',
+  'Learn Angular 4 with Typescript',
+  'Dart & Angular = AngularDart is awasome',
+  'Learn Dart from google',
+  'Learn CPMD with Flutter',
+  'Firebase crash course',
+  'Create Rest API with NodeJs',
+  'Build a full API with Graphql',
+  'Learn Deno the new tech',
+];
+
 class InMemoryDataService extends MockClient {
   static final uuid = Uuid();
-  static final _initialCoursees = [
-    {'uid': 'flkqsnflkn-fndslnq-11', 'title': 'Mr. Nice'},
-    {'uid': 'flkqsnflkn-fndslnq-12', 'title': 'Narco'},
-    {'uid': 'flkqsnflkn-fndslnq-13', 'title': 'Bombasto'},
-    {'uid': 'flkqsnflkn-fndslnq-14', 'title': 'Celeritas'},
-    {'uid': 'flkqsnflkn-fndslnq-15', 'title': 'Magneta'},
-    {'uid': 'flkqsnflkn-fndslnq-16', 'title': 'RubberMan'},
-    {'uid': 'flkqsnflkn-fndslnq-17', 'title': 'Dynama'},
-    {'uid': 'flkqsnflkn-fndslnq-18', 'title': 'Dr IQ'},
-    {'uid': 'flkqsnflkn-fndslnq-19', 'title': 'Magma'},
-    {'uid': 'flkqsnflkn-fndslnq-20', 'title': 'Tornado'}
-  ];
+  static List<Map<String, dynamic>> _initialCourses() {
+    List<Map<String, dynamic>> mockJson = [];
+    for (var i = 0; i < 10; i++) {
+      mockJson.add({
+        'uid': uuid.v4(),
+        'title': titles[i],
+        'tags': tags[i],
+        'image': 'https://bit.ly/2Ov4vSN', // dummy image
+        'description': 'course is available',
+        'updateAt': DateFormat('dd-MM-yy').format(DateTime.now()),
+      });
+    }
+    return mockJson;
+  }
+
   static List<Course> _coursesDB;
   static Future<Response> _handler(Request request) async {
     if (_coursesDB == null) resetDb();
@@ -27,7 +56,7 @@ class InMemoryDataService extends MockClient {
     switch (request.method) {
       case 'GET':
         final uid = request.url.pathSegments.last;
-        if (uid != null && uid != "courses") {
+        if (uid != null && uid != "courses" && uid.isNotEmpty) {
           data = _coursesDB
               // throws if no match
               .firstWhere((course) => course.uid == uid);
@@ -65,7 +94,11 @@ class InMemoryDataService extends MockClient {
   }
 
   static resetDb() {
-    _coursesDB = _initialCoursees.map((json) => Course.fromJson(json)).toList();
+    _coursesDB = _initialCourses()
+        .map(
+          (json) => Course.fromJson(json),
+        )
+        .toList();
   }
 
   static String lookUpTitle(String uid) {

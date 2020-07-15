@@ -2,12 +2,26 @@ class Course {
   final String uid;
   String title;
   String description;
+  String image;
+  List<dynamic> tags;
+  String updateAt;
 
-  Course(this.uid, this.title, [this.description]);
-  factory Course.fromJson(Map<String, dynamic> jsonData) => Course(
-        jsonData['uid'],
-        jsonData['title'],
-        jsonData['description'],
+  Course(
+    this.uid,
+    this.title, [
+    this.description = '',
+    this.image = '',
+    this.tags,
+    this.updateAt,
+  ]);
+
+  factory Course.fromJson(Map<String, dynamic> json) => Course(
+        json['uid'],
+        json['title'],
+        json['description'],
+        json['image'],
+        json['tags'],
+        json['updateAt'],
       );
 
   String toString() {
@@ -18,5 +32,8 @@ class Course {
         'uid': uid,
         'title': title,
         'description': description,
+        'image': image,
+        'tags': tags,
+        'updateAt': updateAt,
       };
 }

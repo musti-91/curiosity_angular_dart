@@ -1,11 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
-body {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 5vw;
-}
-
 * {
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }

@@ -1,0 +1,16 @@
+<div class="container">
+  <div *ngIf="selectedCourse != null" class="row">
+    <div class="col-md-12">
+      <h2>{{selectedCourse.title}}</h2>
+      <div class="rounded my-3">
+        <img [src]="selectedCourse.image" alt="course.title" class="img-fluid img-thumbnail rounded mx-auto d-block" />
+      </div>
+      <div>
+        <label for="title">Update title: </label>
+        <input [(ngModel)]="selectedCourse.title" placeholder="title" class="form-control" />
+      </div>
+      <button class="btn btn-warning mx-1 my-1" (click)="goBack()">Back</button>
+      <button class="btn btn-success mx-1 my-1" (click)='save()'>Save</button>
+    </div>
+  </div>
+</div>
