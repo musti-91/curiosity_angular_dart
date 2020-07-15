@@ -9,6 +9,8 @@ import 'main.template.dart' as self;
 
 @GenerateInjector([
   routerProvidersHash,
+  // for real server
+  // ClassProvider(Client, useClass: BrowserClient),
   ClassProvider(Client, useClass: InMemoryDataService),
 ])
 final InjectorFactory injector = self.injector$Injector;

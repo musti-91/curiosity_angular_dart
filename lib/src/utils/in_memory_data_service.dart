@@ -7,79 +7,70 @@ import 'package:uuid/uuid.dart';
 import 'package:viewer/src/model/Course.dart';
 
 class InMemoryDataService extends MockClient {
-  static final _initialCourses = [
-    {'uid': 'fksqfksd-fklnsqfn-1', 'title': 'Dart the complete guide'},
-    {'uid': 'fksqfksd-fklnsqfn-2', 'title': 'Javascript tutorials'},
-    {'uid': 'fksqfksd-fklnsqfn-3', 'title': 'Typescript'},
-    {'uid': 'fksqfksd-fklnsqfn-4', 'title': 'AngularDart 0 to hero'},
-    {'uid': 'fksqfksd-fklnsqfn-5', 'title': 'RxDart the ulimate course'},
+  static final uuid = Uuid();
+  static final _initialCoursees = [
+    {'uid': 'flkqsnflkn-fndslnq-11', 'title': 'Mr. Nice'},
+    {'uid': 'flkqsnflkn-fndslnq-12', 'title': 'Narco'},
+    {'uid': 'flkqsnflkn-fndslnq-13', 'title': 'Bombasto'},
+    {'uid': 'flkqsnflkn-fndslnq-14', 'title': 'Celeritas'},
+    {'uid': 'flkqsnflkn-fndslnq-15', 'title': 'Magneta'},
+    {'uid': 'flkqsnflkn-fndslnq-16', 'title': 'RubberMan'},
+    {'uid': 'flkqsnflkn-fndslnq-17', 'title': 'Dynama'},
+    {'uid': 'flkqsnflkn-fndslnq-18', 'title': 'Dr IQ'},
+    {'uid': 'flkqsnflkn-fndslnq-19', 'title': 'Magma'},
+    {'uid': 'flkqsnflkn-fndslnq-20', 'title': 'Tornado'}
   ];
-
-  static List<Course> _coursesDb;
-  static int _nextId;
-
-  static Future<Response> _handler(Request req) async {
-    if (_coursesDb == null) resetDb();
-    var uuid = Uuid();
+  static List<Course> _coursesDB;
+  static Future<Response> _handler(Request request) async {
+    if (_coursesDB == null) resetDb();
     var data;
-
-    switch (req.method) {
+    switch (request.method) {
       case 'GET':
-        final uid = req.url.pathSegments.last;
-        if (uid != null) {
-          data = _coursesDb
-              .firstWhere((cr) => cr.uid == uid); // throws if no match
+        final uid = request.url.pathSegments.last;
+        if (uid != null && uid != "courses") {
+          data = _coursesDB
+              // throws if no match
+              .firstWhere((course) => course.uid == uid);
         } else {
-          var prefix = req.url.queryParameters['title'] ?? '';
+          String prefix = request.url.queryParameters['title'] ?? '';
           final regExp = RegExp(prefix, caseSensitive: false);
-          data = _coursesDb.where((cr) => cr.title.contains(regExp)).toList();
+          data = _coursesDB
+              .where((course) => course.title.contains(regExp))
+              .toList();
         }
         break;
       case 'POST':
-        var title = jsonDecode(req.body)['title'];
-        var newCourse = Course(uuid.v1(), title);
-
-        _coursesDb.add(newCourse);
+        var title = json.decode(request.body)['title'];
+        var newCourse = Course(uuid.v4(), title);
+        _coursesDB.add(newCourse);
         data = newCourse;
         break;
-
       case 'PUT':
-        var courseChanges = Course.fromJson(jsonDecode(req.body));
-        var targetCourse = _coursesDb.firstWhere(
-          (element) => element.uid == courseChanges.uid,
-        );
-
-        targetCourse.title = courseChanges.title;
+        var coursesChanges = Course.fromJson(json.decode(request.body));
+        var targetCourse =
+            _coursesDB.firstWhere((h) => h.uid == coursesChanges.uid);
+        targetCourse.title = coursesChanges.title;
         data = targetCourse;
         break;
-
       case 'DELETE':
-        var uid = req.url.pathSegments.last;
-        _coursesDb.removeWhere((course) => course.uid == uid);
+        var uid = request.url.pathSegments.last;
+        _coursesDB.removeWhere((course) => course.uid == uid);
+        // No data, so leave it as null.
         break;
-
       default:
-        throw 'Unimplemented HTTP method ${req.method}';
+        throw 'Unimplemented HTTP method ${request.method}';
     }
-
-    return Response(
-      jsonEncode({'data': data}),
-      200,
-      headers: {'Content-Type': 'application/json'},
-    );
+    return Response(json.encode({'data': data}), 200,
+        headers: {'content-type': 'application/json'});
   }
 
   static resetDb() {
-    _coursesDb = _initialCourses
-        .map(
-          (json) => Course.fromJson(json),
-        )
-        .toList();
-    // _nextId =
-    //     _coursesDb.map((course) => course.uid).elementAt(_coursesDb.length);
+    _coursesDB = _initialCoursees.map((json) => Course.fromJson(json)).toList();
   }
 
-  static String loolUpTitle(String uid) =>
-      _coursesDb.firstWhere((course) => course.uid == uid)?.title;
+  static String lookUpTitle(String uid) {
+    return _coursesDB.firstWhere((course) => course.uid == uid)?.title;
+  }
+
   InMemoryDataService() : super(_handler);
 }

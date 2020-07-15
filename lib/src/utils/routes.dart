@@ -22,9 +22,9 @@ class Routes {
   static final all = <RouteDefinition>[
     courses,
     course,
-    RouteDefinition.redirect(
-      path: '',
-      redirectTo: RoutePaths.courses.toUrl(),
-    )
+    // RouteDefinition.redirect(
+    //   path: '',
+    //   redirectTo: RoutePaths.courses.toUrl(),
+    // )
   ];
 }

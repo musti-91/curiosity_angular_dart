@@ -1,4 +1,4 @@
 {
-  "html.format.enable": false,
+  "html.format.enable": true,
   "workbench.colorTheme": "Bear Theme"
 }

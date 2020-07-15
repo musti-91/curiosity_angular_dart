@@ -5,7 +5,7 @@ class Course {
 
   Course(this.uid, this.title, [this.description]);
   factory Course.fromJson(Map<String, dynamic> jsonData) => Course(
-        jsonData['id'],
+        jsonData['uid'],
         jsonData['title'],
         jsonData['description'],
       );
