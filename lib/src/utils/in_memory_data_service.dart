@@ -31,6 +31,18 @@ final titles = <String>[
   'Build a full API with Graphql',
   'Learn Deno the new tech',
 ];
+final prices = <double>[
+  12.50,
+  11.99,
+  30.30,
+  3.99,
+  5.99,
+  12.29,
+  44.49,
+  199.99,
+  23.33,
+  11.99,
+];
 
 class InMemoryDataService extends MockClient {
   static final uuid = Uuid();
@@ -38,12 +50,17 @@ class InMemoryDataService extends MockClient {
     List<Map<String, dynamic>> mockJson = [];
     for (var i = 0; i < 10; i++) {
       mockJson.add({
-        'uid': uuid.v4(),
-        'title': titles[i],
+        'uid': uuid.v4(), // required
+        'title': titles[i], // required
+        'price': prices[i], // required
+        'author': 'Mustafa Alroomi', // required
         'tags': tags[i],
         'image': 'https://bit.ly/2Ov4vSN', // dummy image
         'description': 'course is available',
         'updateAt': DateFormat('dd-MM-yy').format(DateTime.now()),
+        'stars': List.generate(5, (index) => index + 1),
+        'lectures': 33,
+        'totalDuration': 33.33,
       });
     }
     return mockJson;
@@ -70,7 +87,9 @@ class InMemoryDataService extends MockClient {
         break;
       case 'POST':
         var title = json.decode(request.body)['title'];
-        var newCourse = Course(uuid.v4(), title);
+        var initialPrice = json.decode(request.body)['price'];
+        var author = json.decode(request.body)['author'];
+        var newCourse = Course(uuid.v4(), title, initialPrice, author);
         _coursesDB.add(newCourse);
         data = newCourse;
         break;

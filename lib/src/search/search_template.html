@@ -7,7 +7,7 @@
         z-index: 10;width: 100%; background-color: #242528;
         display: block;">
     <div *ngFor="let course of courses | async" (click)='gotoDetail(course); searchInput.value=""'
-      class='list-group list-group-flush bg-dark'>
+      class='list-group bg-dark'>
       <span class="list-group-item" style="cursor: pointer;">{{ course.title }}</span>
     </div>
   </div>

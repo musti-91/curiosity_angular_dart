@@ -17,13 +17,23 @@
         <img class="card-img-top" [src]="course.image" alt="course.title">
         <div class="card-body">
           <h5 class="card-title">{{course.title}}</h5>
-          <p class="card-text">{{course.description}}</p>
-          <button (click)="deleteCourse(course); $event.stopPropagation()" class="btn btn-danger">Delete</button>
-          <button class="btn btn-warning" (click)="gotoDetail(course)">View details</button>
+          <h6 class="card-title">{{course.author}}</h6>
+          <div class="card-text">
+            Rate:
+            <span class="card-text" *ngFor="let star of course.stars">
+              ⭐️
+            </span>
+          </div>
+          <div class="card-text">
+            Price: {{course.price}} €
+          </div>
+          <div class="card-text text-muted">
+            Last update at {{course.updateAt}}
+          </div>
         </div>
         <div class="card-body">
-          <span class="card-text text-muted">
-            Last update at {{course.updateAt}}</span>
+          <button (click)="deleteCourse(course); $event.stopPropagation()" class="btn btn-danger">Delete</button>
+          <button class="btn btn-warning" (click)="gotoDetail(course)">View details</button>
         </div>
         <div class="card-footer">
           <span class="badge badge-primary p-2 mx-1" *ngFor="let tag of course.tags">{{tag}}</span>
