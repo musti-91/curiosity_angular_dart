@@ -8,7 +8,7 @@
         display: block;">
     <div *ngFor="let course of courses | async" (click)='gotoDetail(course); searchInput.value=""'
       class='list-group list-group-flush bg-dark'>
-      <span class="list-group-item">{{ course.title }}</span>
+      <span class="list-group-item" style="cursor: pointer;">{{ course.title }}</span>
     </div>
   </div>
 </div>

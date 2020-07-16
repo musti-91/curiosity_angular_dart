@@ -5,7 +5,6 @@ import 'package:angular_router/angular_router.dart';
 import 'package:stream_transform/stream_transform.dart';
 import 'package:viewer/src/courses/course_service.dart';
 import 'package:viewer/src/model/Course.dart';
-import 'package:viewer/src/utils/helpers.dart';
 import 'package:viewer/src/utils/routes.dart';
 
 @Component(
@@ -34,7 +33,7 @@ class SearchComponent implements OnInit {
         .transform(switchMap((term) => term.isEmpty
             ? Stream<List<Course>>.fromIterable([<Course>[]])
             : _courseService.search(term).asStream()))
-        .handleError((e) => Helper.simplifyError(e));
+        .handleError(_courseService.simplifyError);
   }
 
   String _courseURl(String uid) => RoutePaths.course.toUrl(

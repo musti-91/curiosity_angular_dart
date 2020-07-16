@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:http/http.dart';
 import 'package:viewer/src/model/Course.dart';
-import 'package:viewer/src/utils/helpers.dart';
+import 'package:viewer/src/services/helper_service.dart';
 
 @Injectable()
-class ClientService {
+class ClientService extends HelperService {
   final Client _client;
   static const _baseURL = 'api/courses';
   static final _headers = {'Content-Type': "application/json"};
@@ -17,13 +17,13 @@ class ClientService {
   Future<List<Course>> getAll() async {
     try {
       final res = await _client.get('courses', headers: _headers);
-      final courses = (Helper.extractData(res) as List)
+      final courses = (extractData(res) as List)
           .map((json) => Course.fromJson(json))
           .toList();
 
       return courses;
     } catch (e) {
-      throw Helper.simplifyError(e);
+      throw simplifyError(e);
     }
   }
 
@@ -31,9 +31,9 @@ class ClientService {
   Future<Course> getSingle(String uid) async {
     try {
       final res = await _client.get('$_baseURL/$uid');
-      return Course.fromJson(Helper.extractData(res));
+      return Course.fromJson(extractData(res));
     } catch (e) {
-      Helper.simplifyError(e);
+      simplifyError(e);
     }
   }
 
@@ -46,9 +46,9 @@ class ClientService {
         body: json.encode({'title': title}),
       );
 
-      return Course.fromJson(Helper.extractData(resp));
+      return Course.fromJson(extractData(resp));
     } catch (e) {
-      Helper.simplifyError(e);
+      simplifyError(e);
     }
   }
 
@@ -57,7 +57,7 @@ class ClientService {
       final url = '$_baseURL/$id';
       await _client.delete(url, headers: _headers);
     } catch (e) {
-      Helper.simplifyError(e);
+      simplifyError(e);
     }
   }
 
@@ -70,9 +70,9 @@ class ClientService {
         headers: _headers,
         body: json.encode(course),
       );
-      return Course.fromJson(Helper.extractData(resp));
+      return Course.fromJson(extractData(resp));
     } catch (e) {
-      Helper.simplifyError(e);
+      simplifyError(e);
     }
   }
 
@@ -80,11 +80,11 @@ class ClientService {
   Future<List<Course>> search(String term) async {
     try {
       final res = await _client.get('api/courses/?title=$term');
-      return (Helper.extractData(res) as List)
+      return (extractData(res) as List)
           .map((json) => Course.fromJson(json))
           .toList();
     } catch (e) {
-      Helper.simplifyError(e);
+      simplifyError(e);
     }
   }
 }
