@@ -3,8 +3,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:http/http.dart';
-import 'package:viewer/src/model/Course.dart';
-import 'package:viewer/src/services/helper_service.dart';
+import 'package:curiosity/src/model/Course.dart';
+import 'package:curiosity/src/services/helper_service.dart';
 
 @Injectable()
 class ClientService extends HelperService {

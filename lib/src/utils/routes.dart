@@ -22,9 +22,11 @@ class Routes {
   static final all = <RouteDefinition>[
     courses,
     course,
-    // RouteDefinition.redirect(
-    //   path: '',
-    //   redirectTo: RoutePaths.courses.toUrl(),
-    // )
+    RouteDefinition.redirect(
+      // this should be changed to home page.
+      // since we don't have Home page redirect it to our courses page.
+      path: '/',
+      redirectTo: RoutePaths.courses.toUrl(),
+    )
   ];
 }

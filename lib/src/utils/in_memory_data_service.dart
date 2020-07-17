@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
-import 'package:viewer/src/model/Course.dart';
+import 'package:curiosity/src/model/Course.dart';
 
 final tags = <List<String>>[
   ['Javascript'],

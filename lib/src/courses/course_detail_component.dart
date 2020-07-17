@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:viewer/src/courses/course_service.dart';
-import 'package:viewer/src/model/Course.dart';
-import 'package:viewer/src/utils/routes.dart';
+import 'package:curiosity/src/courses/course_service.dart';
+import 'package:curiosity/src/model/Course.dart';
+import 'package:curiosity/src/utils/routes.dart';
 
 @Component(
   selector: 'course-detail',

@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:viewer/src/search/search_component.dart';
-import 'package:viewer/src/utils/routes.dart';
+import 'package:curiosity/src/search/search_component.dart';
+import 'package:curiosity/src/utils/routes.dart';
 
 @Component(
   selector: 'my-app',
