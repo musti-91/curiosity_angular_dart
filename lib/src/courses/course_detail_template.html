@@ -24,8 +24,13 @@
           <p class=" card-text">Length: {{selectedCourse.totalDuration}} Min</p>
           <p class="card-text text-muted">Publish at {{selectedCourse.updateAt}}</p>
           <div class="card-footer">
-            <button class="btn btn-warning mx-1 my-1" (click)="goBack()">Back</button>
-            <button class="btn btn-success mx-1 my-1" (click)='save()'>Save</button>
+            <!-- Support tailwindcss classes -->
+            <button
+              class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+              (click)="goBack()">Back</button>
+            <button
+              class="bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+              (click)='save()'>Save</button>
           </div>
         </div>
       </div>

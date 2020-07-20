@@ -32,12 +32,17 @@
           </div>
         </div>
         <div class="card-body">
-          <button (click)="deleteCourse(course); $event.stopPropagation()" class="btn btn-danger">Delete</button>
-          <button class="btn btn-warning" (click)="gotoDetail(course)">View details</button>
+          <button (click)="deleteCourse(course); $event.stopPropagation()"
+            class="bg-red-600 text-white rounded-md hover:bg-red-500 font-semibold py-2 px-4 border border-gray-400 rounded-full shadow transition ease-in duration-500">Delete</button>
+          <button
+            class="bg-yellow-600 text-white rounded-md hover:bg-yellow-500 font-semibold py-2 px-4 border border-gray-400 rounded-full shadow transition ease-in duration-500"
+            (click)="gotoDetail(course)">View details</button>
         </div>
         <div class="card-footer">
-          <span class="badge badge-primary p-2 mx-1" *ngFor="let tag of course.tags" [myHighlight]="'lightblue'"
-            defaultColor="lightblue" opacity="0.5" autoId="tag">{{tag}}</span>
+          <!-- Tailwind css classes.* please note to remove one of the css Libraries -->
+          <span class=" inline-block bg-teal-500 text-white text-xs px-2 py-1 rounded-full"
+            *ngFor="let tag of course.tags" [myHighlight]="'lightblue'" defaultColor="lightblue" opacity="0.5"
+            autoId="tag">{{tag}}</span>
         </div>
       </div>
     </div>
