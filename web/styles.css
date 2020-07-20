@@ -1,5 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
+/* only if active class available */
+:host(.active) {
+  background-color: red;
+}
 
+/* usefull for applying theme */
+:host-context(.theme-light) h2 {
+  background-color: #eef;
+}
+/* target all h3 children DOM */
+:host ::ng-deep h3 {
+  font-style: italic;
+}
 * {
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }

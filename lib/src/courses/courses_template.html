@@ -36,7 +36,8 @@
           <button class="btn btn-warning" (click)="gotoDetail(course)">View details</button>
         </div>
         <div class="card-footer">
-          <span class="badge badge-primary p-2 mx-1" *ngFor="let tag of course.tags">{{tag}}</span>
+          <span class="badge badge-primary p-2 mx-1" *ngFor="let tag of course.tags" [myHighlight]="'lightblue'"
+            defaultColor="lightblue" opacity="0.5" autoId="tag">{{tag}}</span>
         </div>
       </div>
     </div>
